@@ -1,3 +1,7 @@
+Parameters:
+  UserDataScript:
+    Type: String
+    Description: Startup script should be placed in either run_on_start.sh or run_on_start_encoded.sh
 Resources:
   HomeServerInstance:
     Type: AWS::EC2::Instance
@@ -25,8 +29,8 @@ Resources:
           Value: "01-03-2020"
         - Key: "Repository"
           Value: "https://github.com/danmurphy1217/home-server"
-      UserData: 
+      UserData:
       # rather than base64 encoding with python, use this AWs intrinsic function:
       # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-base64.html
-        Fn::Base64:
-          !Sub "file://run_on_start.txt"
+      # or base64 <file> on the command-line.
+        Ref: UserDataScript
