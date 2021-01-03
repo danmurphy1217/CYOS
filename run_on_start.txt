@@ -1,0 +1,11 @@
+#! /bin/bash
+echo "running startup script"
+sudo apt update -y
+sudo apt upgrade -y
+echo "updates complete."
+sudo add-apt-repository ppa:graphics-drivers/ppa
+sudo apt install nvidia-driver-435
+echo "installed nvidia driver."
+wget https://developer.download.nvidia.com/compute/cuda/11.2.0/local_installers/cuda_11.2.0_460.27.04_linux.run
+sudo sh cuda_11.2.0_460.27.04_linux.run
+echo "installed CUDA"

@@ -1,0 +1,32 @@
+Resources:
+  HomeServerInstance:
+    Type: AWS::EC2::Instance
+    Properties:
+      # must have a subnet which supports this region
+      AvailabilityZone: us-east-1e
+      DisableApiTermination: false
+      HibernationOptions:
+        Configured: false
+      # ubuntu 18.04 ID
+      ImageId: "ami-00ddb0e5626798373"
+      InstanceInitiatedShutdownBehavior: stop
+      InstanceType: t2.small
+      KeyName: home-server
+      Monitoring: true
+      # using custom security group, which can be updated in the EC2 console
+      SecurityGroupIds:
+        - sg-0f6bad670e035cc34
+      SecurityGroups:
+        - home-server-security-group
+      Tags:
+        - Key: "Purpose"
+          Value: "home-server"
+        - Key: "Date"
+          Value: "01-03-2020"
+        - Key: "Repository"
+          Value: "https://github.com/danmurphy1217/home-server"
+      UserData: 
+      # rather than base64 encoding with python, use this AWs intrinsic function:
+      # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-base64.html
+        Fn::Base64:
+          !Sub "file://run_on_start.txt"
