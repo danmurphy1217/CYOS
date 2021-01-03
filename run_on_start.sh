@@ -1,7 +1,6 @@
 #! /bin/bash
-echo Initial Dir: $(pwd) > "startup_script.txt"
 cd home/ubuntu
-echo New Dir: $(pwd) >> "startup_script.txt"
+echo Current Dir: $(pwd) >> "startup_script.txt"
 echo "running startup script" >> "startup_script.txt"
 sudo apt update -y
 sudo apt upgrade -y
