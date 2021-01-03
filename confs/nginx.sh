@@ -15,7 +15,7 @@ echo $(sudo ufw status)
 echo "y" | sudo ufw enable
 sudo ufw allow 'Nginx HTTP'
 sudo ufw allow 'OpenSSH'
-sudo ufw start
+
 echo "Firewall is running with current profiles:"
 echo UFW Status: $(sudo ufw status) > $FILE_NAME
 
