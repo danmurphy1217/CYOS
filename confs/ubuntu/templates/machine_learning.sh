@@ -21,11 +21,6 @@ wget https://developer.download.nvidia.com/compute/cuda/11.2.0/local_installers/
 sudo sh cuda_11.2.0_460.27.04_linux.run
 echo "installed CUDA" >> $FILE_NAME
 
-PATH="/usr/local/cuda/bin:$PATH"
-LD_LIBRARY_PATH="/usr/local/cuda/lib64:/usr/local/cuda/extras/CUPTI/lib64:$LD_LIBRARY_PATH"
-LIBRARY_PATH="/usr/local/cuda/lib64:/usr/local/cuda/extras/CUPTI/lib64:$LIBRARY_PATH"
-echo "set environment variables" >> $FILE_NAME
-
 echo "Installing Python and Pip" >> $FILE_NAME
 sudo apt install python-dev python3-dev python-pip python3-venv virtualenv -y
 sudo apt install python3-opencv -y
