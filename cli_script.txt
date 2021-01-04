@@ -1,1 +1,1 @@
-aws cloudformation create-stack --stack-name HomeServerStack --template-body file://home-server-template.yaml --parameters ParameterKey=UserDataScript,ParameterValue=$(base64 run_on_start.sh) > aws_cloudformation_stack_output.json
+aws cloudformation create-stack --stack-name RServerStack --template-body file://home-server-template.yaml --parameters ParameterKey=UserDataScript,ParameterValue=$(base64 confs/ubuntu/R/r_stable.sh) ParameterKey=PurposeName,ParameterValue="R_test" > aws_cloudformation_stack_output.json

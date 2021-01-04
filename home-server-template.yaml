@@ -2,6 +2,9 @@ Parameters:
   UserDataScript:
     Type: String
     Description: Startup script should be placed in either run_on_start.sh or run_on_start_encoded.sh
+  PurposeName:
+    Type: String
+    Description: Purpose for the creation of this resource.
 Resources:
   HomeServerInstance:
     Type: AWS::EC2::Instance
@@ -24,7 +27,8 @@ Resources:
         - home-server-security-group
       Tags:
         - Key: "Purpose"
-          Value: "home-server"
+          Value:
+            Ref: PurposeName
         - Key: "Date"
           Value: "01-03-2020"
         - Key: "Repository"
