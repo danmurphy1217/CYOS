@@ -1,4 +1,4 @@
-FILE_NAME="nginx_script.txt"
+FILE_NAME="nginx_script.log"
 
 echo Current Directory: $(pwd)
 cd home/ubuntu
