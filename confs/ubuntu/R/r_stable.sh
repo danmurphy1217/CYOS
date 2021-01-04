@@ -1,6 +1,6 @@
-FILE_NAME="r_script.log"
+FILE_NAME="r_script.txt"
 
-cd home/ubuntu/
+cd home/ubuntu
 echo "Installing R repository and useful packages." > $FILE_NAME
 sudo apt install apt-transport-https software-properties-common
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
