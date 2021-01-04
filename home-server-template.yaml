@@ -5,6 +5,10 @@ Parameters:
   PurposeName:
     Type: String
     Description: Purpose for the creation of this resource.
+  EC2InstanceType:
+    Type: String
+    Description: The type of EC2 instance to create.
+    AllowedValues: ["t2.micro", "t2.small", "t2.medium", "t2.large"]
 Resources:
   HomeServerInstance:
     Type: AWS::EC2::Instance
@@ -17,7 +21,8 @@ Resources:
       # ubuntu 18.04 ID
       ImageId: "ami-00ddb0e5626798373"
       InstanceInitiatedShutdownBehavior: stop
-      InstanceType: t2.small
+      InstanceType: 
+        Ref: EC2InstanceType
       KeyName: home-server
       Monitoring: true
       # using custom security group, which can be updated in the EC2 console
