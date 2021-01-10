@@ -1,3 +1,2 @@
-{
-    "StackId": "arn:aws:cloudformation:us-east-1:414030767954:stack/ShinyServerStack/1d8db120-5154-11eb-bad5-12235dab63f5"
-}
+
+An error occurred (AlreadyExistsException) when calling the CreateStack operation: Stack [NodeStack] already exists
