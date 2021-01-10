@@ -1,2 +1,3 @@
-
-An error occurred (AlreadyExistsException) when calling the CreateStack operation: Stack [NodeStack] already exists
+{
+    "StackId": "arn:aws:cloudformation:us-east-1:414030767954:stack/Apache/c2a40320-5380-11eb-8649-0a12c74ac309"
+}
