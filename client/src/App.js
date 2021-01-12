@@ -9,6 +9,8 @@ function App() {
       <Global/>
       <Switch>
         <Route exact path='/login' component={LoginPage}/>
+        <Route exact path='/forgot' component={LoginPage}/>
+        <Route exact path='/signup' component={LoginPage}/>
       </Switch>
     </Router>
   )
