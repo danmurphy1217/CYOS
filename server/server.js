@@ -8,7 +8,7 @@ const bodyParser = require("body-parser");
 const app = express();
 const PORT = process.env.PORT || 5000;
 const corsConfig = {
-  origin: ["http://localhost:5000"],
+  origin: ["http://localhost:3000"],
   methods: ["GET", "POST"],
 };
 
