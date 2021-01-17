@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Form, Button } from "react-bootstrap";
 import { GoogleLogin } from "react-google-login";
+import { useHistory } from "react-router-dom";
+import { connect } from "react-redux";
+import { addUserCreds } from "../actions";
+
 import Logo from "./logos/CYOSLogo";
 import GoogleLogo from "./logos/GoogleLogo";
 import axios from "axios";
@@ -22,40 +26,69 @@ const InLineATag = styled.a`
   font-weight: bold;
 `;
 
-const responseGoogle = (response) => {
-  console.log(response);
-};
+const LogIn = (props) => {
 
-export default function LogIn() {
+  const history = useHistory();
   const [password, setPassword] = useState(null);
   const [username, setUsername] = useState(null);
 
   const handlePassword = (e) => {
     console.log(e.target.value);
     setPassword(e.target.value);
-  }
-  
+  };
+
   const handleUsername = (e) => {
     console.log(e.target.value);
     setUsername(e.target.value);
-  }
+  };
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
+  async function responseGoogle(response) {
+    console.log(response);
+    history.push("/");
+  };
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+
     console.log(username, password);
+    const userData = {
+      username: username,
+      password: password
+    }
+    const googleData = {
+      tokenInfo: {
+        bearerToken: null,
+        bearerExpirationTime: null,
+        bearerIssueTime: null
+      },
+      profileInfo: {
+        email: "danielmurph8@gmail.edu",
+        familyName: null,
+        givenName: null,
+        googleId: null,
+        imageUrl: null,
+        name: null
+      }
+    }
+    props.addUserCreds(userData, googleData);
 
     axios({
-      method: 'post',
-      url: 'http://localhost:5000/auth/login',
+      method: "post",
+      url: "http://localhost:5000/auth/login",
       data: {
         username: username,
-        password: password
+        password: password,
+      },
+    }).then(
+      (response) => {
+        // TODO: add authentication check and pop-up message for incorrect credentials
+        console.log(response);
+        history.push("/");
+      },
+      (error) => {
+        console.log(error);
       }
-    }).then((response) => {
-      console.log(response);
-    }, (error) => {
-      console.log(error);
-    });
+    );
   };
 
   return (
@@ -74,11 +107,21 @@ export default function LogIn() {
             </InLineATag>
           </div>
           <Form.Group controlId="formBasicEmail">
-            <Form.Control type="email" placeholder="Enter email" onChange={handleUsername} required/>
+            <Form.Control
+              type="email"
+              placeholder="Enter email"
+              onChange={handleUsername}
+              required
+            />
           </Form.Group>
 
           <Form.Group controlId="formBasicPassword">
-            <Form.Control type="password" placeholder="Password" onChange={handlePassword} required/>
+            <Form.Control
+              type="password"
+              placeholder="Password"
+              onChange={handlePassword}
+              required
+            />
           </Form.Group>
           <Form.Group controlId="formBasicCheckbox">
             <Button
@@ -113,10 +156,42 @@ export default function LogIn() {
           )}
           buttonText="Login"
           onSuccess={responseGoogle}
-          onFailure={responseGoogle}
+          // TODO: make this more robust later
+          // FIXME!
+          onFailure={ () => {alert("Error!")}}
           cookiePolicy={"single_host_origin"}
         />
       </div>
     </div>
   );
 }
+
+function mapStatetoProps(state) {
+  return {
+    auth: {
+      user: {
+        username: state.userAuth.user.username,
+        password: state.userAuth.user.password,
+      },
+      google: {
+        tokenInfo: {
+          bearerToken: state.userAuth.google.tokenInfo.bearerToken,
+          bearerExpirationTime: state.userAuth.google.tokenInfo.bearerExpirationTime,
+          bearerIssueTime: state.userAuth.google.tokenInfo.bearerIssueTime,
+        },
+        profileInfo: {
+          email: state.userAuth.google.profileInfo.email,
+          familyName: state.userAuth.google.profileInfo.familyName,
+          givenName: state.userAuth.google.profileInfo.givenName,
+          googleId: state.userAuth.google.profileInfo.googleId,
+          imageUrl: state.userAuth.google.profileInfo.imageUrl,
+          name: state.userAuth.google.profileInfo.name,
+        },
+      },
+    },
+  };
+}
+
+export default connect(mapStatetoProps, { addUserCreds })(
+  LogIn
+);
